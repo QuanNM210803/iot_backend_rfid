@@ -1,5 +1,6 @@
 package com.iot_backend_rfid.mqtt;
 
+import com.iot_backend_rfid.common.Constants;
 import org.eclipse.paho.client.mqttv3.*;
 import org.springframework.stereotype.Service;
 
@@ -9,16 +10,22 @@ public class MqttService implements MqttCallback {
     private MqttClient mqttClient;
 
     public MqttService() throws MqttException {
-        // Kết nối đến broker MQTT
-        String broker = "tcp://localhost:1883";
-        String clientId = "SpringBootClient";
-        mqttClient = new MqttClient(broker, clientId);
-        mqttClient.setCallback(this);
-        mqttClient.connect();
 
-        mqttClient.subscribe("rfid/idcard");
-//        mqttClient.subscribe("rfid/system");
-//        mqttClient.subscribe("rfid/logs");
+        String broker = Constants.TLS_MQTT_URL;
+        String clientId = Constants.CLIENT_ID;
+
+        mqttClient = new MqttClient(broker, clientId);
+
+        MqttConnectOptions options = new MqttConnectOptions();
+        options.setCleanSession(true);
+        options.setUserName(Constants.USERNAME);
+        options.setPassword(Constants.PASSWORD.toCharArray());
+        options.setKeepAliveInterval(60);
+
+        mqttClient.setCallback(this);
+        mqttClient.connect(options);
+
+        mqttClient.subscribe(Constants.TOPIC_IDCARD);
 
     }
 
