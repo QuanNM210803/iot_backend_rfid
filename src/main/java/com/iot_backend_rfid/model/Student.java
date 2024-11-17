@@ -17,7 +17,7 @@ public class Student {
 
     private String studentCode;
 
-    private String studentCource;
+    private String studentCourse;
 
     private String fieldStudy;
 
