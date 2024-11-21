@@ -20,7 +20,7 @@ public class Room {
 
     private String roomName;
 
-    private String roomCode;
+    //private String roomCode;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private Collection<Device> devices=new HashSet<>();

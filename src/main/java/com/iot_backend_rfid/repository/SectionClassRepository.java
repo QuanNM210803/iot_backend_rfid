@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 public interface SectionClassRepository extends JpaRepository<SectionClass, Integer> {
     @Query(value = "SELECT sc.* FROM section_class sc " +
             "JOIN room r ON sc.room_id = r.room_id " +
-            "WHERE r.room_code = :roomCode " +
+            "WHERE r.room_id = :roomId " +
             "AND :dateTime BETWEEN DATE_SUB(sc.start_time, INTERVAL 10 MINUTE) AND sc.end_time",
             nativeQuery = true)
-    SectionClass findSectionByRoomAndTime(@Param("roomCode") String roomCode,
+    SectionClass findSectionByRoomAndTime(@Param("roomId") Integer roomId,
                                           @Param("dateTime") LocalDateTime dateTime);
 
 }

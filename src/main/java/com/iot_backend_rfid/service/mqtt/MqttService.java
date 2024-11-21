@@ -1,6 +1,7 @@
 package com.iot_backend_rfid.service.mqtt;
 
 import com.iot_backend_rfid.common.Constants;
+import com.iot_backend_rfid.model.Device;
 import com.iot_backend_rfid.service.app.AttendanceService;
 import lombok.SneakyThrows;
 import org.eclipse.paho.client.mqttv3.*;
@@ -56,8 +57,9 @@ public class MqttService implements MqttCallback {
     }
 
     @SneakyThrows
-    public void updateDeviceStatus(Boolean deviceStatus) {
-        String resultMessage = deviceStatus ? Constants.DEVICE_STATUS_ON : Constants.DEVICE_STATUS_OFF;
+    public void updateDeviceStatus(Device device) {
+        String resultMessage = device.getDeviceStatus() ? Constants.DEVICE_STATUS_ON : Constants.DEVICE_STATUS_OFF;
+        resultMessage += ":" + device.getDeviceId();
         MqttMessage sendResult = new MqttMessage(resultMessage.getBytes());
         mqttClient.publish(Constants.TOPIC_DEVICE_STATUS, sendResult);
     }

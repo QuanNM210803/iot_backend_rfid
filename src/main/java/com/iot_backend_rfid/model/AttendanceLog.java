@@ -20,6 +20,6 @@ public class AttendanceLog {
     private LocalDateTime checkInTime;
 
     @ManyToOne
-    @JoinColumn(name = "StudentSectionClassId")
+    @JoinColumn(name = "studentSectionClassId")
     private StudentSectionClass studentSectionClass;
 }

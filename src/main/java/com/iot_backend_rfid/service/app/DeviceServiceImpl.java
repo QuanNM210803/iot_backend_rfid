@@ -26,7 +26,7 @@ public class DeviceServiceImpl implements DeviceService {
         device.setDeviceStatus(deviceStatus ? false : true);
 
         Device deviceSave = deviceRepository.saveAndFlush(device);
-        mqttService.updateDeviceStatus(deviceSave.getDeviceStatus());
+        mqttService.updateDeviceStatus(deviceSave);
 
         Room room = deviceSave.getRoom();
         return DeviceResponse.builder()
@@ -35,7 +35,7 @@ public class DeviceServiceImpl implements DeviceService {
                 .deviceStatus(deviceSave.getDeviceStatus() ? "Active" : "InActive")
                 .room(RoomResponse.builder()
                         .roomId(room.getRoomId())
-                        .roomCode(room.getRoomCode())
+                        //.roomCode(room.getRoomCode())
                         .roomName(room.getRoomName())
                         .build())
                 .build();

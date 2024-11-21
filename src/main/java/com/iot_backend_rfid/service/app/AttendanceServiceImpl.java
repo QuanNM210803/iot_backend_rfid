@@ -30,11 +30,11 @@ public class AttendanceServiceImpl implements AttendanceService{
         }
 
         try {
-            String roomCode = data[0];
+            String roomId = data[0];
             String studentCode = data[1];
             LocalDateTime dateTime = LocalDateTime.parse(data[2], formatter);
 
-            SectionClass sectionClass = sectionClassRepository.findSectionByRoomAndTime(roomCode, dateTime);
+            SectionClass sectionClass = sectionClassRepository.findSectionByRoomAndTime(Integer.parseInt(roomId), dateTime);
             if (sectionClass == null) {
                 return Constants.CHECKIN_FAIL;
             }
